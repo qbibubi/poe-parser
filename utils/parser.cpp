@@ -27,8 +27,10 @@ std::string PoEParser::parseItem(std::string& rawItemData)
     std::string filteredItemData;
 
     // Get rid of Searing Exarch and Eater of Worlds mods
-    while (std::getline(stream, line)) {
-        if (line.find("Item") == line.length() - 4) {
+    while (std::getline(stream, line)) 
+    {
+        if (line.find("Item") == line.length() - 4) 
+        {
             continue;
         }
 
@@ -92,6 +94,7 @@ std::vector<PoEParser::ItemModData> PoEParser::parseMods(std::string& parsedItem
 int PoEParser::parseTier(std::string line) 
 {
     const auto tierIndex = line.find("Tier");
+
     if (tierIndex != std::string::npos)
     {
         std::string tier;

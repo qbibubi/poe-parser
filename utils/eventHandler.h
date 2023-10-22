@@ -4,7 +4,8 @@
 #include <iostream>
 #include <string>
 
-namespace EventHandler {
+namespace EventHandler 
+{
 	void currencyUsed();
 	void copyItemData();
 	std::string getClipboardData();

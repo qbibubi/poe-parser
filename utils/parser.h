@@ -6,7 +6,8 @@
 #include <windows.h>
 #include <vector>
 
-namespace PoEParser {
+namespace PoEParser 
+{
 	struct ItemModData
 	{
 		std::string modifierType;

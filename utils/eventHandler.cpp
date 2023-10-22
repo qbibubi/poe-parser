@@ -4,11 +4,13 @@
 const bool shiftRestState = GetAsyncKeyState(VK_SHIFT) & 0x8000;
 const bool leftMouseRestState= GetAsyncKeyState(VK_LBUTTON);
 
-void EventHandler::currencyUsed() {
+void EventHandler::currencyUsed() 
+{
 	bool leftMouseClicked = GetKeyState(VK_LBUTTON);
 	bool shiftHeld = GetKeyState(VK_SHIFT) & 0x8000;
 
-	if ((shiftHeld == shiftRestState) && (leftMouseClicked == leftMouseRestState)) {
+	if ((shiftHeld == shiftRestState) && (leftMouseClicked == leftMouseRestState)) 
+	{
 		return;
 	}
 
@@ -16,7 +18,8 @@ void EventHandler::currencyUsed() {
 }
 
 // Simulate CTRL + ALT + C
-void EventHandler::copyItemData() {
+void EventHandler::copyItemData() 
+{
 	INPUT inputs[6] = {};
 	ZeroMemory(inputs, sizeof(inputs));
 
@@ -48,14 +51,17 @@ void EventHandler::copyItemData() {
 	inputs[5].ki.dwFlags = KEYEVENTF_KEYUP;
 
 	UINT uSent = SendInput(ARRAYSIZE(inputs), inputs, sizeof(inputs));
-	if (uSent != ARRAYSIZE(inputs)) {
+	if (uSent != ARRAYSIZE(inputs)) 
+	{
 		std::cout << "Sending input failed." << std::endl;
 	}
 }
 
-std::string EventHandler::getClipboardData() {
+std::string EventHandler::getClipboardData() 
+{
 	HANDLE clipboard;
-	if (OpenClipboard(NULL)) {
+	if (OpenClipboard(NULL)) 
+	{
 		clipboard = GetClipboardData(CF_TEXT);
 		std::string clipString = (char*)clipboard;
 		return clipString;
