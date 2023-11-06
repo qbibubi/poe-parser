@@ -7,7 +7,6 @@
 
 namespace PoEParser 
 {
-
 	struct ItemModData
 	{
 		std::string modifierType;
@@ -17,9 +16,9 @@ namespace PoEParser
 		std::vector<std::string> modifierInfluence;
 	};
 
-	std::string parseItem(std::string& rawItemData);
-	std::vector<ItemModData> parseMods(std::string& parsedItemData);
-	int parseTier(std::string line);
-	void printMods(const std::vector<PoEParser::ItemModData>& mods);
+	std::string parseItem( std::string& rawItemData );
+	std::vector<ItemModData> parseMods( std::string& parsedItemData );
+	int parseTier( std::string line );
+	void printMods( const std::vector<PoEParser::ItemModData>& mods );
 
 };
