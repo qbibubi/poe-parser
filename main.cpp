@@ -1,7 +1,7 @@
 #include "utils/parser.h"
 #include "utils/eventHandler.h"
 
-std::string rawItemData = 
+const std::string rawItemData = 
     R"(Item Class: Wands
     Rarity: Magic
     Discharging Imbued Wand of Shocking
