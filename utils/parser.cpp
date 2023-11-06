@@ -1,5 +1,6 @@
 #include "parser.h"
 
+
 std::string PoEParser::parseItem(std::string& rawItemData) 
 {
     const std::string delimiter = "--------";
@@ -8,7 +9,8 @@ std::string PoEParser::parseItem(std::string& rawItemData)
 
     // Append a delimiter to a typical rare item
     // (Non-fractured, non-influenced, non-synthesized, etc.)
-    if (rawItemData.at(rawItemData.length() - 1) != '-') {
+    if (rawItemData.at(rawItemData.length() - 1) != '-') 
+    {
         rawItemData += delimiter;
     }
 
@@ -40,7 +42,9 @@ std::string PoEParser::parseItem(std::string& rawItemData)
     return filteredItemData;
 }
 
-std::vector<PoEParser::ItemModData> PoEParser::parseMods(std::string& parsedItemData) 
+
+std::vector<PoEParser::ItemModData> 
+PoEParser::parseMods(std::string& parsedItemData) 
 {
     std::istringstream stream(parsedItemData);
     std::string line;
@@ -48,12 +52,13 @@ std::vector<PoEParser::ItemModData> PoEParser::parseMods(std::string& parsedItem
     ItemModData mod;
     int i = 0;
 
-    while (std::getline(stream, line))
+    while( std::getline( stream, line ) )
     {
         // find mods
         if (line.find('{') == 0)
         {
-            if (i++ != 0) {
+            if (i++ != 0) 
+            {
                 mods.push_back(mod);
             }
 
@@ -91,7 +96,9 @@ std::vector<PoEParser::ItemModData> PoEParser::parseMods(std::string& parsedItem
     return mods;
 }
 
-int PoEParser::parseTier(std::string line) 
+
+int 
+PoEParser::parseTier(const std::string line) 
 {
     const auto tierIndex = line.find("Tier");
 
@@ -115,7 +122,9 @@ int PoEParser::parseTier(std::string line)
     return 0;
 }
 
-void PoEParser::printMods(std::vector<PoEParser::ItemModData>& mods)
+
+void 
+PoEParser::printMods(const std::vector<PoEParser::ItemModData>& mods) 
 {
     for (auto mod : mods)
     {
@@ -124,9 +133,7 @@ void PoEParser::printMods(std::vector<PoEParser::ItemModData>& mods)
         std::cout << mod.modifierOfName << std::endl;
 
         for (auto submod : mod.modifierRolled)
-        {
             std::cout << "> " + submod << std::endl;
-        }
         std::cout << "-----" << std::endl;
     }
 }

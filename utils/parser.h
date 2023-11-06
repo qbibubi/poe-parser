@@ -2,12 +2,12 @@
 
 #include <iostream>
 #include <string>
-#include <sstream>
-#include <windows.h>
 #include <vector>
+#include <windows.h>
 
 namespace PoEParser 
 {
+
 	struct ItemModData
 	{
 		std::string modifierType;
@@ -20,5 +20,6 @@ namespace PoEParser
 	std::string parseItem(std::string& rawItemData);
 	std::vector<ItemModData> parseMods(std::string& parsedItemData);
 	int parseTier(std::string line);
-	void printMods(std::vector<PoEParser::ItemModData>& mods);
+	void printMods(const std::vector<PoEParser::ItemModData>& mods);
+
 };
