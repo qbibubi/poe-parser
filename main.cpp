@@ -31,7 +31,7 @@ const std::string rawItemData =
 
 int main()
 {
-  std::string parsedItemData = PoEParser::parseItem(rawItemData);
-  std::vector<PoEParser::ItemModData> parsedModData = PoEParser::parseMods(parsedItemData);
-  PoEParser::printMods(parsedModData);
+    std::string parsedItemData = PoEParser::parseItem(rawItemData);
+    std::vector<PoEParser::ItemModData> parsedModData = PoEParser::parseMods(parsedItemData);
+    PoEParser::printMods(parsedModData);
 }
