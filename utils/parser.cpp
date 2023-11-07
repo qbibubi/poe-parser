@@ -1,8 +1,11 @@
 #include "parser.h"
 
 
+using namespace PoEParser;
+
+
 std::string 
-PoEParser::parseItem( std::string& rawItemData ) 
+parseItem( std::string& rawItemData ) 
 {
   const std::string delimiter = "--------";
   auto startingPosition = rawItemData.find( delimiter );
@@ -30,70 +33,74 @@ PoEParser::parseItem( std::string& rawItemData )
   std::string filteredItemData;
 
   // Get rid of Searing Exarch and Eater of Worlds mods
-  while ( std::getline(stream, line) ) 
+  while ( std::getline( stream, line ) ) 
   {
     if ( line.find("Item") != line.length() - 4 ) 
+    {
       filteredItemData += line + '\n';
+    }
   }
 
   return filteredItemData;
 }
 
 
-std::vector<PoEParser::ItemModData> 
-PoEParser::parseMods(std::string& parsedItemData) 
+std::vector<ItemModData> 
+parseMods( const std::string& parsedItemData ) 
 {
-  std::istringstream stream(parsedItemData);
-  std::string line;
-  std::vector<ItemModData> mods;
-  ItemModData mod;
+  std::istringstream stream( parsedItemData );
+  std::string line{};
+  std::vector<ItemModData> mods{};
+  ItemModData mod{ 0 };
   int i = 0;
 
   while( std::getline( stream, line ) )
   {
     // find mods
-    if (line.find('{') == 0)
+    if ( line.find('{') == 0 )
     {
-      if (i++ != 0) 
-        mods.push_back(mod);
+      if ( i++ != 0 ) 
+      {
+        mods.push_back( mod );
+      } 
 
       // clear memory for struct
-      memset(&mod, '', sizeof(mod));
+      // memset(&mod, '\0', sizeof(mod));
       
       // set modifier type to prefix or suffix
-      mod.modifierType = line.find("Prefix") != std::string::npos ? std::string("Prefix") : std::string("Suffix");
+      mod.modifierType = line.find( "Prefix" ) != std::string::npos ? std::string( "Prefix" ) : std::string( "Suffix" );
 
       char modifierDelimiter = '\"';
-      auto modifierPos = line.find(modifierDelimiter);
+      auto modifierPos = line.find( modifierDelimiter );
       std::vector<size_t> modifierVec;
 
-      while (modifierPos != std::string::npos)
+      while ( modifierPos != std::string::npos )
       {
-        modifierVec.push_back(modifierPos);
-        modifierPos = line.find(modifierDelimiter, modifierPos + 1);
+        modifierVec.push_back( modifierPos );
+        modifierPos = line.find( modifierDelimiter, modifierPos + 1 );
       }
 
-      const auto firstQuote = modifierVec.at(0);
-      const auto secondQuote = modifierVec.at(1);
+      const auto firstQuote = modifierVec.at( 0 );
+      const auto secondQuote = modifierVec.at( 1 );
       if (firstQuote != std::string::npos && secondQuote != std::string::npos)
-        mod.modifierOfName = line.substr(firstQuote + 1, secondQuote - firstQuote - 1);
+        mod.modifierOfName = line.substr( firstQuote + 1, secondQuote - firstQuote - 1 );
       
 
-      mod.modifierTier = parseTier(line);
+      mod.modifierTier = parseTier( line );
       continue;
     }
 
-    mod.modifierRolled.push_back(line);
+    mod.modifierRolled.push_back( line );
   }
 
-  mods.push_back(mod);
+  mods.push_back( mod );
 
   return mods;
 }
 
 
 int 
-PoEParser::parseTier( const std::string line ) 
+parseTier( const std::string line ) 
 {
   const auto tierIndex = line.find( "Tier" );
 
@@ -118,16 +125,25 @@ PoEParser::parseTier( const std::string line )
 
 
 void 
-PoEParser::printMods( const std::vector<PoEParser::ItemModData>& mods ) 
+printMods( const std::vector<ItemModData>& mods )
 {
+  if ( mods.begin() == mods.end() )
+  {
+    return;
+  }
+
+
   for ( const auto& mod : mods )
   {
-    std::cout << mod.modifierType << std::endl;
-    std::cout << mod.modifierTier << std::endl;
-    std::cout << mod.modifierOfName << std::endl;
+    std::cout 
+      << mod.modifierType << '\n' 
+      << mod.modifierTier << '\n' 
+      << mod.modifierOfName << 
+    std::endl;
 
     for (auto submod : mod.modifierRolled)
         std::cout << "> " + submod << std::endl;
+
     std::cout << "-----" << std::endl;
   }
 }

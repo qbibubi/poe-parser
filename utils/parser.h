@@ -1,24 +1,28 @@
 #pragma once
 
+
 #include <iostream>
 #include <string>
 #include <vector>
+#include <sstream>
 #include <windows.h>
+
 
 namespace PoEParser 
 {
+
 	struct ItemModData
 	{
+		int modifierTier;
 		std::string modifierType;
 		std::string modifierOfName;
-		int modifierTier;
 		std::vector<std::string> modifierRolled;
 		std::vector<std::string> modifierInfluence;
 	};
 
-	std::string parseItem( std::string& rawItemData );
-	std::vector<ItemModData> parseMods( std::string& parsedItemData );
+	std::string parseItem( const std::string& rawItemData );
+	std::vector<ItemModData> parseMods( const std::string& parsedItemData );
 	int parseTier( std::string line );
-	void printMods( const std::vector<PoEParser::ItemModData>& mods );
+	void printMods( const std::vector<ItemModData>& mods );
 
 };
