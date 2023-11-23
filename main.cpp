@@ -1,5 +1,4 @@
 #include "utils/parser.h"
-#include "utils/eventHandler.h"
 
 const std::string rawItemData = 
   R"(Item Class: Wands

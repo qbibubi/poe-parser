@@ -5,7 +5,6 @@
 #include <string>
 #include <vector>
 #include <sstream>
-#include <windows.h>
 
 
 namespace PoEParser 

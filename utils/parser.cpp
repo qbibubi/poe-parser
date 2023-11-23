@@ -49,9 +49,9 @@ std::vector<ItemModData>
 parseMods( const std::string& parsedItemData ) 
 {
   std::istringstream stream( parsedItemData );
-  std::string line{};
+  std::string line = "";
   std::vector<ItemModData> mods{};
-  ItemModData mod{ 0 };
+  ItemModData mod{0};
   int i = 0;
 
   while( std::getline( stream, line ) )
